@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<head>
+<title>Sentiment Analysis</title>  
+<!-- D3 related scripts -->
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+<script src="http://trifacta.github.com/vega/vega.js"></script>  
+<script src="js/jquery.js"></script>
+        <script>
+            $(function(){
+                $("#navigation").load("navigation.html");
+            });
+        </script>
+<script type="text/javascript">
+
+
+// parse a spec and create a visualization view
+function parse(spec) {
+  vg.parse.spec(spec, function(chart) { chart({el:"#showTimeSeries"}).update(); });
+}
+parse("files/time_chart_ads.json");
+
+</script>
+<link rel="stylesheet" type="text/css" href="css/index.css"> 
+</head>
+<body>
+<div class="container">
+    <div class="row">
+<section class="content">
+            <h1>Stress Quotient</h1>
+            <br/><br/><br/>
+            <div class="col-md-8 col-md-offset-4">
+                <div id="navigation"></div>
+
+               <div class="form-group">
+                          
+                          <select class="form-control" id="college1" style="width:100px;float:left;margin:10px;">
+                            <option>UCLA</option>
+                            <option>Stanford</option>
+                          </select>
+                         <span style="float:left;margin:10px;">Versus </span>
+                          <select class="form-control" id="college2" style="width:100px;float:left;margin:10px;">
+                            <option>USC</option>
+                          </select>
+                        </div>
+                    <br/><br/> 
+            </div>
+                <br/><br/><br/><br/>
+                    <div id="showTimeSeries"></div>
+                <div class="content-footer">
+                    <hr/>
+<h3>Help our Research</h3>
+<b>For more details, <a href="contact.html">click here</a></b>
+<br/><br/>
+<form class="form-inline" role="form">
+  <div class="form-group">
+    <label for="email">Email address:</label>
+    <input type="email" class="form-control" id="email">
+  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="form-group">
+    <label for="pwd">Twitter Handle:</label>
+    <input type="text" class="form-control" id="twitter">
+  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+                </div>
+</section>
+
+</div></div>
+
+
+</body>

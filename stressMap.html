@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<head>
+    <title>Sentiment Analysis</title>  
+
+    <script src="js/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#navigation").load("navigation.html");
+        });
+    </script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script src="js/USheatMap.js"></script>
+    <style type="text/css">
+        .states {
+            stroke: #dcdcdc;
+            stroke-width: -1.5px;
+        }
+ 
+        .states text {
+            fill: #fff;
+            stroke: none;
+            text-anchor:middle;
+            font-size: 8px;
+            font-weight: bold;
+        }
+    </style>
+
+    <link rel="stylesheet" type="text/css" href="css/index.css"> 
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <section class="content">
+                <h1>Stress Quotient</h1>
+                <br/><br/><br/>
+                <div class="col-md-8 col-md-offset-4">
+                    <div id="navigation"></div>
+
+                    
+                    <div style="width: 700px; height: 500px" id="map" />
+                    <br/><br/> 
+                </div>
+                <br/><br/><br/><br/>
+
+                <div class="content-footer">
+                    <p>
+                        Footer here<br>
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+</body>
