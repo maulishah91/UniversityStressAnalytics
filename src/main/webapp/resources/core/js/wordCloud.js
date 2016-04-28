@@ -1,13 +1,14 @@
-function createWordCloud(){
-
+function createWordCloud(data2){
+	alert("here"+data2);
     var words_size_list = [];
+    d3.selectAll("#wordCloudID").remove();
+   // d3.json(data2, function(data) { 
+    	
+    words_size_list = data2; 
 
-    d3.json(wordCloudData_json, function(data) {
-
-    words_size_list = data;
 
     var color = d3.scale.linear()
-            .domain([0, 2,4,8,d3.max(data, function(d) { return (d.size); })])
+            .domain([0, 2,4,8,d3.max(data2, function(d) { return (d.size); })])
             .range(["#c7c7c7", "#aec7e8", "#1f77b4", "#636363", "#393b79"]);
 
     d3.layout.cloud().size([400, 300])
@@ -16,9 +17,11 @@ function createWordCloud(){
             .fontSize(function(d) { return d.size; })
             .on("end", addWordsToCloud)
             .start();
-
+    
     function addWordsToCloud(words) {
-        d3.select("body").append("svg")
+    	
+        d3.select("#showWordCloud").append("svg")
+        		.attr("id","wordCloudID")
                 .attr("width", 500)
                 .attr("height", 400)
                 .attr("class", "wordcloud")
@@ -35,5 +38,5 @@ function createWordCloud(){
                     return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";})
                 .text(function(d) { return d.text; });
     }
- });
+   // });
 }

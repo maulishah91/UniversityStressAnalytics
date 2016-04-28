@@ -1,7 +1,7 @@
 function createBarChart(){
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
-    width = 800 - margin.left - margin.right,
+    width = 700 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
@@ -19,7 +19,8 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .ticks(10);
 
-var svg = d3.select("body").append("svg")
+
+var svg = d3.select("#showBarChart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -56,8 +57,8 @@ d3.tsv(bar_chart_tsv, type, function(error, data) {
       .attr("x", function(d) { return x(d.letter); })
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.frequency); })
-      .attr("height", function(d) { return height - y(d.frequency); }); // its height - y value.. which is y value from bottom as the axis starts from 0,0 in the top left
-
+      .attr("height", function(d) { return height - y(d.frequency); }) // its height - y value.. which is y value from bottom as the axis starts from 0,0 in the top left
+      .on("mouseover", Hover); 
 // add legend  
 colors = [["Happiness Values","#9467bd"]];
    
@@ -105,4 +106,42 @@ function type(d) {
   d.frequency = +d.frequency;
   return d;
 }
+
+
+function Hover(d){
+	alert(d.letter);
+	//place the ajax request here for creating wordcloud
+	
+	
+	var data = {}
+	data["letter"] = d.letter;
+	
+	$.ajax({
+		type : "POST",
+		contentType : "application/json",
+		url : "ajax/getWordCloud",
+		data : d.letter,
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			//alert(data);
+			createWordCloud(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			alert(e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		}
+	});
+
+	
+
+	
+}
+
+
+
 }

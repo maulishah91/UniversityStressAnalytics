@@ -1,5 +1,7 @@
-package com.university.web;
+package com.universities.web;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -7,11 +9,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.university.service.HelloWorldService;
+import com.universities.service.HelloWorldService;
+
 
 @Controller
 public class WelcomeController {
@@ -95,5 +100,19 @@ public class WelcomeController {
 		return model;
 
 	}
+	
+	
+	//
+	@ResponseBody
+	@RequestMapping(value = "/ajax/getWordCloud")
+	public String getSearchResultViaAjax(@RequestBody String univName) {
+		if(univName==null || univName.trim().equals("")){
+			//show error page
+		}
+		logger.debug("University data to display: "+univName);
+		return helloWorldService.getWordCloud(univName);
+	}
 
 }
+
+

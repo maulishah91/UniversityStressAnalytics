@@ -17,6 +17,3 @@ installing gradle on ubuntu : http://wtanaka.com/node/8079
 creating tsv response : http://stackoverflow.com/questions/28098842/how-to-make-spring-controller-to-return-csv-from-a-pojo
 			http://stackoverflow.com/questions/9913732/configuring-spring-mvc-controller-to-send-file-to-client
 
-
-to run using jetty : gradle jettyRun
-
