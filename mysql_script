@@ -1,0 +1,4 @@
+//change password in spring-datasource.xml
+create database stressAnalytics;
+use stressAnalytics;
+create table subscription(email varchar(200),twitter_handle varchar(200));
