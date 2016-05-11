@@ -8,6 +8,18 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd ">
  
-	<context:component-scan base-package="com.universities.service" />
+	<context:component-scan base-package="com.universities" />
+	<context:annotation-config/>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:8080" />
+		<property name="username" value="root" />
+		<property name="password" value="124252" />
+	</bean>
+	
+	<bean id="subscriptionDAO" class="com.universities.dao.impl.SubscriptionDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 </beans>

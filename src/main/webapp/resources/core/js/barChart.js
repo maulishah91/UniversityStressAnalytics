@@ -109,7 +109,7 @@ function type(d) {
 
 
 function Hover(d){
-	alert(d.letter);
+	//alert(d.letter);
 	//place the ajax request here for creating wordcloud
 	
 	

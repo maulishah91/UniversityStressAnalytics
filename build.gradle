@@ -19,7 +19,10 @@ dependencies {
 	compile 'javax.servlet:jstl:1.2'
   compile 'com.googlecode.json-simple:json-simple:1.1'
 	compile 'com.google.code.gson:gson:1.7.1'
-}
+	compile 'mysql:mysql-connector-java:5.1.9'
+	compile 'commons-validator:commons-validator:1.4.1'
+	compile 'org.springframework:spring-jdbc:3.0.5.RELEASE'
+	}
 
 // Embeded Jetty for testing
 jettyRun{
