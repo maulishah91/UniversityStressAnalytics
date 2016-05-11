@@ -12,7 +12,8 @@
     <spring:url value="/resources/core/js/cloud.js" var="cloud_js" />
     <spring:url value="/resources/core/files/wordCloudData.json" var="cloud_json" />
     <spring:url value="/resources/core/files/barChart.tsv" var="bar_chart_tsv" />
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <spring:url value="/resources/core/files/d3.tip.v0.6.3.js" var="d3_tip" />
+    <script src="${d3_tip}"></script>
     <script type="text/javascript">
     wordCloudData_json = "${cloud_json}";
     bar_chart_tsv="${bar_chart_tsv}";
