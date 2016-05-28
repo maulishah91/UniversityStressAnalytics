@@ -51,7 +51,6 @@
 		timeout : 100000,
 		success : function(data) {
 			console.log("SUCCESS: ", data);
-			alert(data);
 			jsonResp = data;
 			$.getJSON(json_us_heatmap, function(data) {
 		        buildMap(data,jsonResp);
