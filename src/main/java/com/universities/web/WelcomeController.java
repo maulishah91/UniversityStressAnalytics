@@ -20,21 +20,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.commons.validator.routines.EmailValidator;
-import com.universities.dao.SubscriptionDAO;
-import com.universities.dao.impl.SubscriptionDAOImpl;
-import com.universities.model.Subscription;
-import com.universities.service.HelloWorldService;
 
+import com.universities.dao.BarPlotDAO;
+import com.universities.dao.StressStateDAO;
+import com.universities.dao.SubscriptionDAO;
+import com.universities.dao.wordCloudDao;
+import com.universities.dao.impl.SubscriptionDAOImpl;
+import com.universities.model.Maps;
+import com.universities.model.Subscription;
+import com.universities.model.Word;
+import com.universities.service.HelloWorldService;
+import com.google.gson.*;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 @Controller
 public class WelcomeController {
 
 	private final Logger logger = LoggerFactory.getLogger(WelcomeController.class);
 	private final HelloWorldService helloWorldService;
+	private ApplicationContext context;
 
 	@Autowired
 	public WelcomeController(HelloWorldService helloWorldService) {
 		this.helloWorldService = helloWorldService;
+		context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+		
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -53,17 +65,6 @@ public class WelcomeController {
 		return model;
 	}
 
-	@RequestMapping(value = "/hello/{name:.+}", method = RequestMethod.GET)
-	public ModelAndView hello(@PathVariable("name") String name) {
-		logger.debug("hello() is executed - $name {}", name);
-		ModelAndView model = new ModelAndView();
-		model.setViewName("index");
-		model.addObject("title", helloWorldService.getTitle(name));
-		model.addObject("msg", helloWorldService.getDesc());
-		return model;
-
-	}
-
 	@RequestMapping(value = "/stressMap", method = RequestMethod.GET)
 	public ModelAndView stressMap() {
 		logger.debug("return stress map home page");
@@ -80,13 +81,22 @@ public class WelcomeController {
 		model.setViewName("contact");
 		return model;
 	}
-
+	
+	
 	@RequestMapping(value = "/schoolRanking", method = RequestMethod.GET)
 	public ModelAndView schoolRanking() {
 		logger.debug("return school Ranking home page");
 		ModelAndView model = new ModelAndView();
 		model.setViewName("schoolRanking");
 		return model;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajax/getBarPlot")
+	public String getBarChartViaAjax() {
+		logger.debug("Getting bar chart json data ");
+		BarPlotDAO barDAO = (BarPlotDAO) context.getBean("barPlotDAO");
+		return helloWorldService.getBarPlot(barDAO);
 	}
 		
 	@ResponseBody
@@ -96,7 +106,20 @@ public class WelcomeController {
 			//show error page
 		}
 		logger.debug("University data to display: "+univName);
-		return helloWorldService.getWordCloud(univName);
+		wordCloudDao wordDao = (wordCloudDao) context.getBean("wordCloudDAO");
+		return helloWorldService.getWordCloud(univName,wordDao);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/ajax/getStressMap")
+	public String getStressMapViaAjax() {
+		
+		logger.debug("Enter stress Map ajax ");
+		StressStateDAO stateDao = (StressStateDAO) context.getBean("stressStateDao");
+		String json = helloWorldService.getStressStateValues(stateDao);
+		
+		return json;
+
 	}
 	
 	@ResponseBody
@@ -107,7 +130,6 @@ public class WelcomeController {
 		Subscription subs = new Subscription(email, twitter);
 		String msg="An Error Occured!";
 		boolean isError=false;
-		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
 		
 		if(!validateEmail(email)){
 			msg= "Please enter valid email ID";
