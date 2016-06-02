@@ -8,7 +8,7 @@ $settings = array(
 );
 
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
-$getfield = '?q=UCLA&count=5';
+$getfield = '?q=#UCLA&count=100';
 $requestMethod = 'GET';
 
 $twitter = new TwitterAPIExchange($settings);
@@ -22,7 +22,7 @@ foreach($response['statuses'] as $tweet)
 {
     $text = $tweet['text'];
     echo $text;
-    echo "................";
+    echo "\n";
 }
 
 ?>
