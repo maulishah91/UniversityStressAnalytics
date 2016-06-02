@@ -1,5 +1,4 @@
 function createWordCloud(data2){
-	//alert("here"+data2);
     var words_size_list = [];
     d3.selectAll("#wordCloudID").remove();
    // d3.json(data2, function(data) { 

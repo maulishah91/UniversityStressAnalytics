@@ -6,5 +6,19 @@
 	<bean id="subscriptionDAO" class="com.universities.dao.impl.SubscriptionDAOImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	
+	<bean id="wordCloudDAO" class="com.universities.dao.impl.WordCloudDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
+	<bean id="barPlotDAO" class="com.universities.dao.impl.BarPlotDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="stressStateDao" class="com.universities.dao.impl.StressStateDAOImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	
+	
 </beans>

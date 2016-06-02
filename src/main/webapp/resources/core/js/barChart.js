@@ -1,4 +1,4 @@
-function createBarChart(){
+function createBarChart(data){
 
 var margin = {top: 50, right: 50, bottom: 50, left: 50},
     width = 700 - margin.left - margin.right,
@@ -26,8 +26,8 @@ var svg = d3.select("#showBarChart").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");   
 
-d3.tsv(bar_chart_tsv, type, function(error, data) {
-  if (error) throw error;
+//d3.json(bar_chart_tsv, type, function(error, data) {
+  //if (error) throw error;
 
   x.domain(data.map(function(d) { return d.letter; }));
   y.domain([0, d3.max(data, function(d) { return (d.frequency+100); })]); //additional 100 will increase y axis range, this will not affect the values
@@ -100,7 +100,8 @@ legendText
     }); 
      
 
-});
+//});
+
 
 function type(d) {
   d.frequency = +d.frequency;

@@ -1,15 +1,24 @@
 // usheatmap.js
-function buildMap(data){
+function buildMap(data,jsonResp){
  
     var width = 800,
         height = 500,
     projection, path,
     svg, g, mapColor,
     values = {};
- 
-    data.heatmap.forEach(function(state){
-        values[state.label] = state.value;
+    
+    jsonResp.forEach(function(state){
+    	values[state.label] = state.value;
     });
+    
+   /* data.heatmap.forEach(function(state){
+        values[state.label] = state.value;
+        if(state.label=='NY'){
+        	alert("here");
+        	values[state.label] = 0;
+        }
+        
+    });*/
  
     projection = d3.geo.albersUsa()
             .scale(width)
@@ -115,6 +124,3 @@ svg.append("text")
       .text("Count");        
 }
  
-$.getJSON(json_us_heatmap, function(data) {
-    buildMap(data);
-});

@@ -11,12 +11,10 @@
     <spring:url value="/resources/core/js/wordCloud.js" var="wordCloud_js" />
     <spring:url value="/resources/core/js/cloud.js" var="cloud_js" />
     <spring:url value="/resources/core/files/wordCloudData.json" var="cloud_json" />
-    <spring:url value="/resources/core/files/barChart.tsv" var="bar_chart_tsv" />
-    <spring:url value="/resources/core/files/d3.tip.v0.6.3.js" var="d3_tip" />
+    <spring:url value="/resources/core/js/d3.tip.v0.6.3.js" var="d3_tip" />
     <script src="${d3_tip}"></script>
     <script type="text/javascript">
     wordCloudData_json = "${cloud_json}";
-    bar_chart_tsv="${bar_chart_tsv}";
     </script>
     
     <script src="${cloud_js}"></script>
@@ -65,7 +63,7 @@
 
 
                 </div>
-				 <div id="showBarChart"><script>createBarChart();</script></div>
+				 <div id="showBarChart"></div>
                  <div id="showWordCloud" style="position:absolute;left:800px;top:250px;"><script type="text/javascript"></script> </div> 
             </section>
 
@@ -73,4 +71,26 @@
     </div>
     <div style="position:absolute;width:100%;">
     <%@include file="footer.jsp" %> </div>
+    <script>
+    //load bar chart on page load
+    $.ajax({
+		type : "GET",
+		contentType : "application/json",
+		url : "ajax/getBarPlot",
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);
+			createBarChart(data);
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			alert(e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		}
+	});
+
+    </script>
 </body>

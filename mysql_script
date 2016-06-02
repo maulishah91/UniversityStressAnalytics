@@ -2,3 +2,40 @@
 create database stressAnalytics;
 use stressAnalytics;
 create table subscription(email varchar(200),twitter_handle varchar(200));
+
+create table wordCloud(tagName varchar(200),word varchar(200),size integer(3));
+
+#dummy inserts:
+#we can take top 50 frequent words for word cloud
+
+insert into wordCloud values("ucla","Bruins",50);
+insert into wordCloud values("ucla","Pauley Pavilion",30);
+insert into wordCloud values("ucla","Exams",70);
+insert into wordCloud values("ucla","Powell",40);
+insert into wordCloud values("ucla","BruinWalk",40);
+insert into wordCloud values("ucla","Henry Samueli",10);
+insert into wordCloud values("ucla","Ronald Reagan",40);
+
+#table for bar chart
+create table universityScore(university varchar(200),score integer(20));
+
+insert into universityScore values("UCLA",10);
+insert into universityScore values("USC",35);
+insert into universityScore values("Harvard",67);
+insert into universityScore values("Stanford",440);
+insert into universityScore values("Yale",5);
+insert into universityScore values("CMU",76);
+insert into universityScore values("UCI",55);
+insert into universityScore values("NCSU",40);
+insert into universityScore values("UCSB",350);
+insert into universityScore values("TAMU",79);
+
+#table for university state mapping
+create table universityStateMapping(university varchar(200), state varchar(200));
+
+insert into universityStateMapping values("UCLA","CA");
+insert into universityStateMapping values("USC","CA");
+insert into universityStateMapping values("TAMU","TX");
+insert into universityStateMapping values("UCI","CA");
+insert into universityStateMapping values("NCSU","NC");
+
