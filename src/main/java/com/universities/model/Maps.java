@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Maps{
-	int value=0;
-	String label;
 	Map<String,Integer> maps;
 	public Maps(){
 		maps=new HashMap<String,Integer>();

@@ -3,6 +3,7 @@
 <!DOCTYPE HTML>
 <head>
     <title>Sentiment Analysis</title>  
+    <script>var pageName='#contact';</script>
     <%@include file="navigation.jsp" %>
 </head>
 <body>

@@ -9,7 +9,7 @@
 <spring:url value="/resources/core/js/topojson.v1.min.js" var="topojson" />
 <spring:url value="/resources/core/js/d3.geo.projection.v0.min.js" var="geo" />
 <spring:url value="/resources/core/js/vega.js" var="vega" />
-
+<script>var pageName='#timeSeries';</script>
 <%@include file="navigation.jsp" %>
    
 <script src="${topojson}"></script>

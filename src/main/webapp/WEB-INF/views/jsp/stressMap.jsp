@@ -5,6 +5,7 @@
     <title>Sentiment Analysis</title>  
 	
     <!--  Add resource URLS-->
+    <script>var pageName='#stressMap';</script>
     <%@include file="navigation.jsp" %>
     <spring:url value="/resources/core/files/us.json" var="us_json" />
     <script>var json_us_heatmap="${us_json}"</script>

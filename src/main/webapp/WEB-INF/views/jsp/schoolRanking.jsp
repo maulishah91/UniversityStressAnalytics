@@ -6,6 +6,7 @@
 
 <head>
     <title>Sentiment Analysis</title>  
+    <script>var pageName='#schoolRanking';</script>
     <%@include file="navigation.jsp" %>
     <spring:url value="/resources/core/js/barChart.js" var="barChart_js" />
     <spring:url value="/resources/core/js/wordCloud.js" var="wordCloud_js" />
@@ -30,6 +31,7 @@
 
         .bar {
           fill: #9467bd;
+
         }
 
         .bar:hover {
@@ -63,7 +65,7 @@
 
 
                 </div>
-				 <div id="showBarChart"></div>
+				 <div id="showBarChart" ></div>
                  <div id="showWordCloud" style="position:absolute;left:800px;top:250px;"><script type="text/javascript"></script> </div> 
             </section>
 

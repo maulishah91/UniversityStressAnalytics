@@ -39,3 +39,40 @@ insert into universityStateMapping values("TAMU","TX");
 insert into universityStateMapping values("UCI","CA");
 insert into universityStateMapping values("NCSU","NC");
 
+
+#create a database
+create table tweets(tweetId INTEGER(10) UNSIGNED AUTO_INCREMENT ,university VARCHAR(200), timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,sentiment TINYINT(2),PRIMARY KEY (tweetId));
+
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-10 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-09 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-08 18:19:03',0);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-07 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-06 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-05 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-04 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-03 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-02 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-01 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-05-30 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-29 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-28 18:19:03',0);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-27 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-26 18:19:03',-1);
+
+
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-10 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-09 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-08 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-07 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-06 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-05 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-04 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-03 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-02 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-01 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-05-30 18:19:03',-1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-29 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-28 18:19:03',1);
+insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-27 18:19:03',);
+insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-26 18:19:03',0);
+
