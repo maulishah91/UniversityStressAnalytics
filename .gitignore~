@@ -3,4 +3,3 @@
 build
 /.gradle
 build.gradle
-src/main/resources/spring-datasource.xml

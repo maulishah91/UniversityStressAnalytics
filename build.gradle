@@ -4,8 +4,8 @@ apply plugin: 'eclipse-wtp'
 apply plugin: 'jetty'
 
 // JDK 8
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
     mavenLocal()
@@ -13,11 +13,16 @@ repositories {
 }
 
 dependencies {
- 
+	/*compile 'org.eclipse.jetty:jetty-io:8.0.0.M3'
+	compile 'org.eclipse.jetty:jetty-server:8.0.0.M3'
+	compile 'org.eclipse.jetty:jetty-servlet:8.0.0.M3'
+	compile 'org.eclipse.jetty:jetty-util:8.0.0.M3'
+	compile 'org.eclipse.jetty:jetty-webapp:8.0.0.M3'
+	*/
 	compile 'ch.qos.logback:logback-classic:1.1.3'
 	compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
 	compile 'javax.servlet:jstl:1.2'
-  compile 'com.googlecode.json-simple:json-simple:1.1'
+    compile 'com.googlecode.json-simple:json-simple:1.1'
 	compile 'com.google.code.gson:gson:1.7.1'
 	compile 'mysql:mysql-connector-java:5.1.9'
 	compile 'commons-validator:commons-validator:1.4.1'
@@ -26,12 +31,12 @@ dependencies {
 
 // Embeded Jetty for testing
 jettyRun{
-	contextPath = "stressAnalytics"
+	contextPath = "stress"
 	httpPort = 8080
 }
 
 jettyRunWar{
-	contextPath = "stressAnalytics"
+	contextPath = "stress"
 	httpPort = 8080
 }
 
@@ -42,7 +47,7 @@ eclipse {
     component {
       
       //define context path, default to project folder name
-      contextPath = 'stressAnalytics'
+      contextPath = 'stress'
       
     }
     
