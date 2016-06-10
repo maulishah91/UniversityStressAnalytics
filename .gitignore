@@ -7,3 +7,4 @@
 /*.class
 /src/main/login/includes/consumer_keys.php
 /src/main/cron-job/includes/keys.php
+/src/main/python/word2vec-model

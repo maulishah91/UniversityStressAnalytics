@@ -120,7 +120,7 @@ def clean_tweet(tweet):
 
 
 if __name__=="__main__":
-    w2v_file = "word2vec_twitter_model.bin"
+    w2v_file = "word2vec-model/word2vec_twitter_model.bin"
     print "loading data...",
     revs, vocab = build_data_tweet(cv=10)
     max_l = np.max(pd.DataFrame(revs)["num_words"])
