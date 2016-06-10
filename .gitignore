@@ -1,6 +1,9 @@
 /build
 /src/main/login/includes
-build
 /.gradle
-build.gradle
-src/main/resources/spring-datasource.xml
+/build.gradle
+/src/main/resources/spring-datasource.xml
+/tmp
+/*.class
+/src/main/login/includes/consumer_keys.php
+/src/main/cron-job/includes/keys.php

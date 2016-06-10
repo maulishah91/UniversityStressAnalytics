@@ -10,13 +10,13 @@ $settings = array(
 
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
 
-$universities = array("UCLA", "Stanford", "USC", "MIT", "Harvard", "NYU", "UC Berkeley", "Carnegie Mellon", "Cornell", "Columbia");
-$hashtags = 
-foreach($response['statuses'] as $tweet) {
+// $universities = array("UCLA", "Stanford", "USC", "MIT", "Harvard", "NYU", "UC Berkeley", "Carnegie Mellon", "Cornell", "Columbia");
+// $hashtags = 
+// foreach($response['statuses'] as $tweet) {
 		
-}
+// }
 
-$getfield = '?q=#UCLA&count=5';
+$getfield = '?q=#UCLA&count=1';
 $requestMethod = 'GET';
 
 $twitter = new TwitterAPIExchange($settings);
@@ -26,10 +26,11 @@ $result =  $twitter->setGetfield($getfield)
 
 $response = json_decode($result, true);
 
-foreach($response['statuses'] as $tweet) {
-    $text = $tweet['text'];
-    echo $text;
-    echo "\n";
-}
+echo $result;
+// foreach($response['statuses'] as $tweet) {
+//     $text = $tweet['text'];
+//     echo $text;
+//     echo "\n";
+// }
 
 ?>
