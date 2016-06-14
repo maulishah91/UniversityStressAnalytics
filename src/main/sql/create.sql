@@ -77,6 +77,14 @@ CREATE TABLE IF NOT EXISTS `hashtags` (
   `hashtags` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `tweets` (
+  tweetId INT(10) UNSIGNED AUTO_INCREMENT ,
+  university varchar(50),
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  sentiment TINYINT(2),
+  PRIMARY KEY (tweetId)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 insert into hashtags values(1, 'UCLA', '#UCLA'), (2, 'Stanford', '#Stanford'), (3, 'MIT', '#MIT'), (4, 'NYU', '#NYU'), (5, 'UC Berkeley', '#UCB'), (6, 'USC','#USC'), (7, 'Columbia', '#Columbia'), (8, 'Cornell', '#Cornell'), (9, 'Carnegie Mellon', '#CMU'), (10, 'Yale', '#Yale');
 
 /*!40101 SET character_set_client = @saved_cs_client */;
