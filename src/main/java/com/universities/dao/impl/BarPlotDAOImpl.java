@@ -42,7 +42,7 @@ public class BarPlotDAOImpl implements BarPlotDAO{
 					while (rs.next()) {
 						oneword=new Bars();
 						oneword.setLetter(rs.getString("university"));
-						oneword.setFrequency(rs.getInt("score"));
+						oneword.setFrequency(rs.getInt("positiveScore"));
 						bars.add(oneword);
 					}
 					rs.close();

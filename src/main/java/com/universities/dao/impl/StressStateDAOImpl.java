@@ -110,7 +110,7 @@ public class StressStateDAOImpl implements StressStateDAO{
 			int value=0;
 			while (rs.next()) {
 				univName=rs.getString("university");
-				value=rs.getInt("score");
+				value=rs.getInt("negativeScore");
 				universityScores.put(univName,value);
 				setAllUniversities(univName);
 			}

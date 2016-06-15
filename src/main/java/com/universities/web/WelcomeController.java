@@ -24,6 +24,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import com.universities.dao.BarPlotDAO;
 import com.universities.dao.StressStateDAO;
 import com.universities.dao.SubscriptionDAO;
+import com.universities.dao.TimeVisDAO;
 import com.universities.dao.wordCloudDao;
 import com.universities.dao.impl.SubscriptionDAOImpl;
 import com.universities.model.Maps;
@@ -123,6 +124,22 @@ public class WelcomeController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/ajax/getTimeVisData", method = RequestMethod.GET)
+	public String getTimeVisDataViaAjax(@RequestParam String univ1, String univ2) {
+		//check if university name is valid
+		logger.debug("Enter time vis ajax ");
+		if(univ1==null || univ1.trim().equals("") || univ2==null && univ2.trim().equals("")){
+			univ1="UCLA";
+			univ2="UCLA";
+		} 
+		
+		TimeVisDAO timeVisDao = (TimeVisDAO) context.getBean("timeVisDao");
+		String json = helloWorldService.getTimeVisValues(timeVisDao,univ1,univ2);
+		return json;
+
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/subscription",produces="application/json")
 	public Subscription getSearchResultForSubscription(@RequestParam("email") String email,@RequestParam("twitter") String twitter) {
 		logger.debug("Enter subscription details");
@@ -172,6 +189,4 @@ public class WelcomeController {
 		return (text!=null && !text.trim().equals(""));
 	}
 }
-
-
 

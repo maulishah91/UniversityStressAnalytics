@@ -19,12 +19,12 @@
 
 <script type="text/javascript">
 
-
+var dat;
 // parse a spec and create a visualization view
-function parse(spec) {
+function parse(spec,newdata) {
+	spec["data"][0]["values"]=newdata;
   vg.parse.spec(spec, function(chart) { chart({el:"#showTimeSeries"}).height(400).width(650).update(); });
 }
-parse("${time_chart_json}");
 
 </script>
 </head>
@@ -37,15 +37,14 @@ parse("${time_chart_json}");
 
                <div class="form-group">
                           
-                          <select class="form-control" id="college1" style="width:100px;float:left;margin:10px;">
-                            <option>UCLA</option>
-                            <option>Stanford</option>
+                          <select onclick="getTimeChart();" class="form-control" id="college1" style="width:100px;float:left;margin:10px;">
+                            
                           </select>
                          <span style="float:left;margin:10px;">Versus </span>
-                          <select class="form-control" id="college2" style="width:100px;float:left;margin:10px;">
-                            <option>USC</option>
+                          <select onclick="getTimeChart();" class="form-control" id="college2" style="width:100px;float:left;margin:10px;">
+                            
                           </select>
-                        </div>
+                          </div>
                     <br/><br/> 
             </div>
                 <br/><br/><br/><br/>
@@ -56,5 +55,50 @@ parse("${time_chart_json}");
 </div></div>
 
 <%@include file="footer.jsp"%>
-
+  <script>
+    //load time vis data
+    function loadUniversities(){
+    	var universities= ["UCLA","USC","Stanford","NCSU"];
+    	var options="";
+    	for (i=0;i<universities.length;i++){
+    		options+="<option>"+universities[i]+"</option>";
+    	}
+    	document.getElementById("college1").innerHTML=options;
+    	document.getElementById("college2").innerHTML=options;
+    }
+    function getTimeChart(){
+    var data = {}
+	data["univ1"] = document.getElementById("college1").value;
+    data["univ2"] = document.getElementById("college2").value;
+    if(data["univ1"]==null || data["univ1"]=="undefined"){
+    	data["univ1"]="UCLA";
+    	data["univ2"]="UCLA";
+    }
+    $.ajax({
+		type : "GET",
+		contentType : "application/json",
+		url : "ajax/getTimeVisData",
+		data : data,
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);		
+			jsonResp=data;
+			$.getJSON("${time_chart_json}", function(data) {
+		        parse(data,jsonResp);
+		        
+		    });
+		},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			alert("error"+e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		}
+	});
+    }
+    loadUniversities();
+    getTimeChart();
+    </script>
 </body>

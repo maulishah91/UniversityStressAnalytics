@@ -17,7 +17,7 @@ insert into wordCloud values("ucla","Henry Samueli",10);
 insert into wordCloud values("ucla","Ronald Reagan",40);
 
 #table for bar chart
-create table universityScore(university varchar(200),score integer(20));
+create table universityScore(university varchar(200),positiveScore integer(20),negativeScore integer(20));
 
 insert into universityScore values("UCLA",10);
 insert into universityScore values("USC",35);
@@ -76,3 +76,9 @@ insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-28 18:1
 insert into tweets(university,timestamp,sentiment) values("USC",'2016-06-27 18:19:03',);
 insert into tweets(university,timestamp,sentiment) values("UCLA",'2016-06-26 18:19:03',0);
 
+create table timeVis(university varchar(200),dailyNegativeTweetCount float(7,2),startTime varchar(200));
+
+insert into timeVis(university,dailyNegativeTweetCount,startTime) values("USC",10.25,"1465945816");  
+insert into timeVis(university,dailyNegativeTweetCount,startTime) values("USC",4.25,"1466943072");  
+insert into timeVis(university,dailyNegativeTweetCount,startTime) values("UCLA",60.25,"1465945816");  
+insert into timeVis(university,dailyNegativeTweetCount,startTime) values("USC",2.25,"1466943072");  
