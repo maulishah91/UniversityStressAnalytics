@@ -54,7 +54,8 @@ DROP TABLE IF EXISTS `universityScore`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `universityScore` (
   `university` varchar(200) DEFAULT NULL,
-  `score` int(20) DEFAULT NULL
+  `positiveScore` int(20) DEFAULT NULL,
+  `negativeScore` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -64,7 +65,7 @@ CREATE TABLE `universityScore` (
 
 LOCK TABLES `universityScore` WRITE;
 /*!40000 ALTER TABLE `universityScore` DISABLE KEYS */;
-INSERT INTO `universityScore` VALUES ('UCLA',10),('USC',35),('Harvard',67),('Stanford',440),('Yale',5),('CMU',76),('UCI',55),('NCSU',40),('UCSB',350),('TAMU',79);
+INSERT INTO `universityScore` VALUES ('UCLA',10,45),('USC',35,123),('Harvard',67,11),('Stanford',440,233),('Yale',5,343),('CMU',76,545),('UCI',55,44),('NCSU',40,66),('UCSB',350,23),('TAMU',79,566);
 /*!40000 ALTER TABLE `universityScore` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,6 +116,34 @@ INSERT INTO `wordCloud` VALUES ('ucla','Bruins',50),('ucla','Pauley Pavilion',30
 /*!40000 ALTER TABLE `wordCloud` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+--
+-- Table structure for table `timeVis`
+--
+
+DROP TABLE IF EXISTS `timeVis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `timeVis` (
+  `university` varchar(200),
+  `dailyNegativeTweetCount` float(7,2),
+  `startTime` varchar(200)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `timeVis`
+--
+
+LOCK TABLES `timeVis` WRITE;
+/*!40000 ALTER TABLE `wordCloud` DISABLE KEYS */;
+INSERT INTO `timeVis` VALUES ('UCLA',50,"1465945816"),('USC',30,"1465945816"),('UCLA',70,"1466943072"),('USC',40,"1466943072");
+/*!40000 ALTER TABLE `wordCloud` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
