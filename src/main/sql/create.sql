@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `hashtags` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `tweets` (
-  tweetId INT(10) UNSIGNED AUTO_INCREMENT ,
+  tweetId INT(20),
   university varchar(50),
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   sentiment TINYINT(2),
