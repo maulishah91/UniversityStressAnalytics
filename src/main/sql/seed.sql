@@ -141,16 +141,21 @@ LOCK TABLES `timeVis` WRITE;
 INSERT INTO `timeVis` VALUES ('UCLA',50,"1465945816"),('USC',30,"1465945816"),('UCLA',70,"1466943072"),('USC',40,"1466943072");
 /*!40000 ALTER TABLE `wordCloud` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+CREATE TABLE IF NOT EXISTS `hashtags` (
+  `id` INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `university` varchar(50) DEFAULT NULL,
+  `hashtags` varchar(100) DEFAULT NULL,
+  `since_id` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE IF NOT EXISTS `tweets` (
+  id INT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  tweetId varchar(30),
+  university varchar(50),
+  raw_timestamp varchar(30),
+  normalized_timestamp varchar(30),
+  sentiment TINYINT(2)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-06-08 23:54:42
+insert into hashtags values(1, 'UCLA', '#UCLA','1'), (2, 'Stanford', '#Stanford','1'), (3, 'MIT', '#MIT','1'), (4, 'NYU', '#NYU','1'), (5, 'UCB', '#UCB','1'), (6, 'USC','#USC','1'), (7, 'Columbia', '#Columbia','1'), (8, 'Cornell', '#Cornell','1'), (9, 'CMU', '#CMU','1'), (10, 'Yale', '#Yale','1');

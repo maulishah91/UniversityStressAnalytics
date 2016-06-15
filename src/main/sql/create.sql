@@ -7,9 +7,10 @@ CREATE TABLE IF NOT EXISTS `subscription` (
   `twitter_handle` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `universityScore` (
+CREATE TABLE `universityScore` (
   `university` varchar(200) DEFAULT NULL,
-  `score` int(20) DEFAULT NULL
+  `positiveScore` int(20) DEFAULT NULL,
+  `negativeScore` int(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `universityStateMapping` (
@@ -21,6 +22,12 @@ CREATE TABLE IF NOT EXISTS `wordCloud` (
   `tagName` varchar(200) DEFAULT NULL,
   `word` varchar(200) DEFAULT NULL,
   `size` int(3) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `timeVis` (
+  `university` varchar(200),
+  `dailyNegativeTweetCount` float(7,2),
+  `startTime` varchar(200)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `hashtags` (
