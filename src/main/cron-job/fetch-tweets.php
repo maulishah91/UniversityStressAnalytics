@@ -13,14 +13,14 @@ $settings = array(
 $url = 'https://api.twitter.com/1.1/search/tweets.json';
 $requestMethod = 'GET';
 
-$query = "select * from hashtags";
-$retval = mysql_query($query);
+$select_query = "select * from hashtags";
+$retval = mysql_query($select_query);
 if (!$retval) {
     die('Could not get data: ' . mysql_error());
 } else {
     while($row = mysql_fetch_array($retval)) {
-    	$getfield = '?q='.$row[2].'&lang=en&count=10';
-    	#$getfield = '?q=#UCLA&count=1';
+    	$getfield = '?q='.$row[2].'&lang=en&count=2&since_id='.$row[3];
+    	#$getfield = '?q=#UCLA&count=3&since_id=0743155561215078400';
 		$twitter = new TwitterAPIExchange($settings);
 		$result =  $twitter->setGetfield($getfield)
 		    ->buildOauth($url, $requestMethod)
@@ -30,13 +30,38 @@ if (!$retval) {
 		$file = fopen("../python/input/".$row[1].".csv","w");
 
 		foreach($response['statuses'] as $tweet) {
+	 	    $id = $tweet['id'];
+	 	    echo "\n";
+	 	    echo $id;
+	 	    echo "\n";
+	 	    $timestamp = strtotime($tweet['created_at']);
+	 	    #$normalized_timestamp = $tweet['text'];
 	 	    $text = $tweet['text'];
-			echo fwrite($file,$text."\n");
+			fwrite($file,$text."\n");
+
+			$insert_query = "insert into tweets(tweetId, university, raw_timestamp) values('".$id."','".$row[1]."',".$timestamp.")";
+			echo "\n";
+			echo $insert_query;
+			echo "\n";
+			$insert_retval = mysql_query($insert_query);
+			if (!$insert_retval) {
+    			die('Could not insert into table: ' . mysql_error());
+			}
 		}
+		
 		fclose($file);
+
+		$sinceidstr= $response['search_metadata']['refresh_url'];
+		$sinceidarr = explode("&",$sinceidstr);
+		$since_id = explode("=",$sinceidarr[0]);
+
+		$update_query = "update hashtags set since_id='".$since_id[1]."' where university='".$row[1]."'";
+		$update_retval = mysql_query($update_query);
+		if (!$update_retval) {
+    		die('Could not update table: ' . mysql_error());
+		}
+	break;
    }
 }
-
-#echo $result;
 
 ?>

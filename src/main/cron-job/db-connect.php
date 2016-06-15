@@ -5,10 +5,11 @@ require_once('includes/keys.php');
 // Create connection
 $conn = mysql_connect(SERVER_NAME, USERNAME, PASSWORD);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// if ($conn->connect_error) {
+//     die("Connection failed: " . $conn->connect_error);
+// }
 
-echo "Connected successfully";
+#echo "Connected successfully";
+#echo "\n";
 
 mysql_select_db(DB_NAME);
