@@ -10,7 +10,6 @@
     <div class="container">
         <div class="row">
             <section class="content">
-<<<<<<< HEAD
                 <div class="col-md-8 col-md-offset-2">
                      <article id="page-82" class="row-fluid post-82 page type-page status-publish hentry">
                                                 <header class="entry-header">
@@ -40,12 +39,6 @@ United States of America</p>
 
                                             </article>
 
-=======
-                <div class="col-md-8 col-md-offset-4">
-                    <!--Here are the contact details -->
->>>>>>> 1b2ac92754742042ec25f1738c6d5fae6b480b31
-                    <br/><br/> 
-                </div>
             </section>
 
         </div>
