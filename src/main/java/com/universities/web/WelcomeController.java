@@ -140,6 +140,17 @@ public class WelcomeController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value = "/ajax/getTimeVisUniversities", method = RequestMethod.GET)
+	public List<String> getTimeVisUniversitiesViaAjax() {
+		//check if university name is valid
+		logger.debug("Enter time vis ajax for all univ ");
+		TimeVisDAO timeVisDao = (TimeVisDAO) context.getBean("timeVisDao");
+		List<String> result = helloWorldService.getAllUniv(timeVisDao);
+		return result;
+
+	}
+	
+	@ResponseBody
 	@RequestMapping(value = "/subscription",produces="application/json")
 	public Subscription getSearchResultForSubscription(@RequestParam("email") String email,@RequestParam("twitter") String twitter) {
 		logger.debug("Enter subscription details");

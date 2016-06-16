@@ -29,4 +29,9 @@ public class TimeVisImpl{
 		String json=gson.toJson(timeVal);	
 		return json;
 	}
+	
+	public List<String> getTimeVisUniversities(TimeVisDAO timeVisDao){
+		List<String> allUniv=timeVisDao.getAllUniversities();
+		return allUniv;
+	}
 }
