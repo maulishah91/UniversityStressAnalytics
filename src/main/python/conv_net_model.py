@@ -327,11 +327,13 @@ def read_input(path):
     with open(path, "rb") as f:
         rdr = csv.reader(f)
         for row in rdr:
-            tweet = clean_tweet(row[0])
+            tweetId = row[0]
+            tweet = clean_tweet(row[1])
             datum = {"y": -1,
                      "text": tweet,
                      "num_words": len(tweet.split()),
-                     "split": -1}
+                     "split": -1,
+                     "tweetId": tweetId}
             tweet_data.append(datum)
     return tweet_data
 
@@ -340,7 +342,7 @@ def write_output(path, input_data, preds):
     with open(path, 'wb') as f:
         writer = csv.writer(f)
         for i in xrange(len(input_data)):
-            writer.writerow([input_data[i]["text"], preds[i]])
+            writer.writerow([input_data[i]["tweetId"], input_data[i]["text"], preds[i]])
 
 
 if __name__=="__main__":

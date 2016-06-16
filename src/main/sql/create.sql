@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `tweets` (
   university varchar(50),
   raw_timestamp varchar(30),
   normalized_timestamp varchar(30),
-  sentiment TINYINT(2)
+  sentiment TINYINT(2) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 insert into hashtags values(1, 'UCLA', '#UCLA','1'), (2, 'Stanford', '#Stanford','1'), (3, 'MIT', '#MIT','1'), (4, 'NYU', '#NYU','1'), (5, 'UCB', '#UCB','1'), (6, 'USC','#USC','1'), (7, 'Columbia', '#Columbia','1'), (8, 'Cornell', '#Cornell','1'), (9, 'CMU', '#CMU','1'), (10, 'Yale', '#Yale','1');
