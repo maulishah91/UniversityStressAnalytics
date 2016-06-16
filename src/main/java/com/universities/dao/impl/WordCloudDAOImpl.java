@@ -30,7 +30,7 @@ public class WordCloudDAOImpl implements wordCloudDao{
 		
 		
 		logger.info("Entered the find by university name");
-		String sql = "SELECT * FROM stressAnalytics.wordCloud WHERE tagName = ?";
+		String sql = "SELECT * FROM stressAnalytics.wordCloud WHERE tagName = ? ORDER BY size DESC";
 		
 		Connection conn = null;
 		List<Word> words=new ArrayList<Word>();
@@ -40,10 +40,20 @@ public class WordCloudDAOImpl implements wordCloudDao{
 			ps.setString(1, univName.toLowerCase());
 			ResultSet rs = ps.executeQuery();
 			Word oneword;
-			while (rs.next()) {
+			int biggestSize=1;
+			if (rs.next()) {
+				biggestSize = rs.getInt("size");
 				oneword=new Word();
 				oneword.setText(rs.getString("word"));
-				oneword.setSize(rs.getInt("size"));
+				oneword.setSize(100);
+				words.add(oneword);
+			}
+			while(rs.next()){
+				int size = rs.getInt("size");
+				size = (size*100)/biggestSize;
+				oneword=new Word();
+				oneword.setText(rs.getString("word"));
+				oneword.setSize(size);
 				words.add(oneword);
 			}
 			rs.close();

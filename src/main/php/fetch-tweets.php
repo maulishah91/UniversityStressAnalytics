@@ -16,7 +16,6 @@ $requestMethod = 'GET';
 $select_query = "select * from hashtags";
 $retval = mysql_query($select_query);
 $university_names=array();
-
 if (!$retval) {
     die('Could not get data: ' . mysql_error());
 } else {
@@ -29,13 +28,16 @@ if (!$retval) {
 		    ->performRequest();
 
 		$response = json_decode($result, true);
-		$input_file = fopen("../python/input/".$row[1].".csv","w");
-
+<<<<<<< HEAD:src/main/cron-job/fetch-tweets.php
+		$file = fopen("../python/input/".$row[1].".csv","w");
 		#for each university
 		echo "for university: ".$row[1]."\n";
 		$university_names[]="".$row[1]."";
 		$all_text ="";
+=======
+		$input_file = fopen("../python/input/".$row[1].".csv","w");
 
+>>>>>>> 23494f7db9188b2db7acd49d59a42383e0bfb8ff:src/main/php/fetch-tweets.php
 		foreach($response['statuses'] as $tweet) {
 	 	    $id = $tweet['id'];
 	 	    $timestamp = strtotime($tweet['created_at']);
@@ -44,21 +46,27 @@ if (!$retval) {
 	 	    $text = trim(preg_replace('/\s+/', ' ', $text));
 	 	    $text = preg_replace('/[,]/', '', $text);
 	 	    $text = trim($text, ',');
-	 	    $all_text =$all_text.$text;
+<<<<<<< HEAD:src/main/cron-job/fetch-tweets.php
+		    $all_text = $all_text.$text;
+			fwrite($file,$text."\n");
+			$insert_query = "insert into tweets(tweetId, university, raw_timestamp) values('".$id."','".$row[1]."',".$timestamp.")";
+=======
 			fwrite($input_file,$id.", ".$text."\n");
 			$insert_query = "insert into tweets(tweetId, university, raw_timestamp, normalized_timestamp) values('".$id."','".$row[1]."',".$timestamp.",'".$normalized_timestamp."')";
+>>>>>>> 23494f7db9188b2db7acd49d59a42383e0bfb8ff:src/main/php/fetch-tweets.php
 			$insert_retval = mysql_query($insert_query);
 			if (!$insert_retval) {
     			die('Could not insert into table: ' . mysql_error());
 			}
 		}
+<<<<<<< HEAD:src/main/cron-job/fetch-tweets.php
 		#process this text
 		#remove punctuations
 		$all_text = preg_replace('/[^a-z0-9]+/i', ' ', $all_text);
 		$all_text = array_count_values(str_word_count($all_text, 1));
-		echo "size of word cloud: ".count($all_text)."\n";		
+		#print_r(count($all_text));		
 		arsort($all_text);
-		$all_text=array_slice($all_text, 0, (count($all_text) >= 35?35:count($all_text)));
+		$all_text=array_slice($all_text, 0, (count($all_text) >= 25?25:count($all_text)));
 		#$all_text["a"]=5;
 		#print_r($all_text);
 		#store this in word cloud table
@@ -76,8 +84,11 @@ if (!$retval) {
     			die('Could not insert into table: ' . mysql_error());
 				}
 			}	
+		fclose($file);
+=======
 		
 		fclose($input_file);
+>>>>>>> 23494f7db9188b2db7acd49d59a42383e0bfb8ff:src/main/php/fetch-tweets.php
 
 		$sinceidstr= $response['search_metadata']['refresh_url'];
 		$sinceidarr = explode("&",$sinceidstr);
@@ -117,7 +128,6 @@ if (!$retval) {
    }
 }
 
-
 #insert in univ scores
 #print_r($university_names);
 #the positive and negative scores are not yet normalized
@@ -126,7 +136,7 @@ for ($x = 0; $x < count($university_names); $x++) {
     $positiveSentiment=0;
     $negativeSentiment=0;
     #for every univ get the positive and negative tweet count
-	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=2";
+	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=-1";
 	$retval = mysql_query($select_query_tweets);
 	if (!$retval) {
    		 die('Could not get data: ' . mysql_error());
@@ -139,7 +149,7 @@ for ($x = 0; $x < count($university_names); $x++) {
 	}
 
 
-	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=0";
+	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=1";
 	$retval = mysql_query($select_query_tweets);
 	if (!$retval) {
    		 die('Could not get data: ' . mysql_error());
@@ -184,6 +194,5 @@ for ($x = 0; $x < count($university_names); $x++) {
     		die('Could not update table: ' . mysql_error());}}
 		
 } 
-
 
 ?>
