@@ -31,7 +31,7 @@ if (!$retval) {
 		#for each university
 		echo "for university: ".$row[1]."\n";
 		$university_names[]="".$row[1]."";
-		$all_text ="";
+		
 		foreach($response['statuses'] as $tweet) {
 	 	    $id = $tweet['id'];
 	 	    $timestamp = strtotime($tweet['created_at']);
@@ -40,7 +40,7 @@ if (!$retval) {
 	 	    $text = trim(preg_replace('/\s+/', ' ', $text));
 	 	    $text = preg_replace('/[,]/', '', $text);
 	 	    $text = trim($text, ',');
-	 	    $all_text =$all_text.strtolower($text);
+	 	    
 			fwrite($input_file,$id.", ".$text."\n");
 			$tweetText = mysql_real_escape_string($text);
 			$insert_query = "insert into tweets(tweetId, university, raw_timestamp, normalized_timestamp, tweetText) values('".$id."','".$row[1]."',".$timestamp.",'".$normalized_timestamp."','".$tweetText."')";
@@ -49,31 +49,7 @@ if (!$retval) {
     			die('Could not insert into table: ' . mysql_error());
 			}
 		}
-		#process this text
-		#remove punctuations
-		$all_text = preg_replace('/[^a-z0-9]+/i', ' ', $all_text);
-		$all_text = removeCommonWords($all_text);
-		$all_text = array_count_values(str_word_count($all_text, 1));
-		echo "size of word cloud: ".count($all_text)."\n";		
-		arsort($all_text);
-		$all_text=array_slice($all_text, 0, (count($all_text) >= 35?35:count($all_text)));
-		#$all_text["a"]=5;
-		#print_r($all_text);
-		#store this in word cloud table
-		#word cloud will be based on the most recent tweets
-			$delete_query ="delete from wordCloud where tagName = '".$row[1]."'";
-			$delete_retval = mysql_query($delete_query);
-			if (!$delete_retval) {
-    			die('Could not insert into table: ' . mysql_error());
-				}
-			foreach($all_text as $key=>$option) {
-			#echo "".$word."";
-			$insert_query = "insert into wordCloud values('".$row[1]."','".$key."','".$option."')";
-			$insert_retval = mysql_query($insert_query);
-			if (!$insert_retval) {
-    			die('Could not insert into table: ' . mysql_error());
-				}
-			}	
+				
 		
 		fclose($input_file);
 		$sinceidstr= $response['search_metadata']['refresh_url'];
@@ -114,6 +90,7 @@ for ($x = 0; $x < count($university_names); $x++) {
     echo "$university_names[$x]";
     $positiveSentiment=0;
     $negativeSentiment=0;
+    $all_text ="";
     #for every univ get the positive and negative tweet count
 	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=2";
 	$retval = mysql_query($select_query_tweets);
@@ -169,7 +146,40 @@ for ($x = 0; $x < count($university_names); $x++) {
 		
     		die('Could not update table: ' . mysql_error());
     	}
-    }		
+    }
+
+    ## perform insert in wordcloud table
+    $select_query_tweet_text = "select text from tweets where university = \"".$university_names[$x]."\" ORDER BY normalized_timestamp desc LIMIT 1000";
+	$retval = mysql_query($select_query_tweet_text);
+	while($row = mysql_fetch_array($retval_uniScores)){
+			$all_text =$all_text.strtolower($row[1]);
+		}
+	#process this text
+	#remove punctuations
+	$all_text = preg_replace('/[^a-z0-9]+/i', ' ', $all_text);
+	$all_text = removeCommonWords($all_text);
+	$all_text = array_count_values(str_word_count($all_text, 1));
+	echo "size of word cloud: ".count($all_text)."\n";		
+	arsort($all_text);
+	$all_text=array_slice($all_text, 0, (count($all_text) >= 35?35:count($all_text)));
+	#$all_text["a"]=5;
+	#print_r($all_text);
+	#store this in word cloud table
+	#word cloud will be based on the most recent tweets
+	$delete_query ="delete from wordCloud where tagName = '".$university_names[$x]."'";
+	$delete_retval = mysql_query($delete_query);
+	if (!$delete_retval) {
+    	die('Could not insert into table: ' . mysql_error());
+		}
+	foreach($all_text as $key=>$option) {
+		#echo "".$word."";
+		$insert_query = "insert into wordCloud values('".$university_names[$x]."','".$key."','".$option."')";
+		$insert_retval = mysql_query($insert_query);
+		if (!$insert_retval) {
+    		die('Could not insert into table: ' . mysql_error());
+		}
+	}
+			
 }
 ### copying from tweets table to timevis table
 	#$tweetsToTimeVisQuery_select = "select university, count(*) as dailyNegativeTweetCount, normalized_timestamp as startTime from tweets where sentiment=2 group by normalized_timestamp, university"
@@ -185,4 +195,6 @@ for ($x = 0; $x < count($university_names); $x++) {
 			die('Could not insert into timeVis table from tweets table: ' . mysql_error());
 		}
 	}
+
+###insert tweets in word cloud	
 ?>
