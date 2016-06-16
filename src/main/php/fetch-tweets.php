@@ -181,9 +181,24 @@ for ($x = 0; $x < count($university_names); $x++) {
 		$update_retval = mysql_query($update_query);
 		if (!$update_retval) {
 		
-    		die('Could not update table: ' . mysql_error());}}
-		
-} 
+    		die('Could not update table: ' . mysql_error());
+    	}
+    }		
+}
 
+### copying from tweets table to timevis table
+	#$tweetsToTimeVisQuery_select = "select university, count(*) as dailyNegativeTweetCount, normalized_timestamp as startTime from tweets where sentiment=2 group by normalized_timestamp, university"
+	$tweetsToTimeVisQuery_select = "select university, count(*) as dailyNegativeTweetCount, normalized_timestamp as startTime from tweets where sentiment=2 group by normalized_timestamp, university";
+	$tweetsToTimeVisQuery_select_retval = mysql_query($tweetsToTimeVisQuery_select);
+	if (!$tweetsToTimeVisQuery_select_retval) {
+		die('Could not select from tweets table for timeVis table: ' . mysql_error());
+	}
 
+	while($row = mysql_fetch_array($tweetsToTimeVisQuery_select_retval)) {
+		$tweetsToTimeVisQuery_insert = "insert into timeVis values ('".$row[0]."',".$row[1].",'".$row[2]."');";
+		$tweetsToTimeVisQuery_insert_retval = mysql_query($tweetsToTimeVisQuery_insert);
+		if (!$tweetsToTimeVisQuery_insert_retval) {
+			die('Could not insert into timeVis table from tweets table: ' . mysql_error());
+		}
+	}
 ?>
