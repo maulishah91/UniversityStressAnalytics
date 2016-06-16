@@ -58,13 +58,35 @@ function parse(spec,newdata) {
   <script>
     //load time vis data
     function loadUniversities(){
-    	var universities= ["UCLA","USC","Stanford","NCSU"];
-    	var options="";
-    	for (i=0;i<universities.length;i++){
-    		options+="<option>"+universities[i]+"</option>";
-    	}
-    	document.getElementById("college1").innerHTML=options;
-    	document.getElementById("college2").innerHTML=options;
+    	
+    	//ajax request for universities
+    	$.ajax({
+		type : "GET",
+		contentType : "application/json",
+		url : "ajax/getTimeVisUniversities",
+		dataType : 'json',
+		timeout : 100000,
+		success : function(data) {
+			console.log("SUCCESS: ", data);	
+			//alert(data[0]);
+			var universities=data;
+			var options="";
+	    	for (i=0;i<universities.length;i++){
+	    		options+="<option>"+universities[i]+"</option>";
+	    	}
+	    	document.getElementById("college1").innerHTML=options;
+	    	document.getElementById("college2").innerHTML=options;
+			},
+		error : function(e) {
+			console.log("ERROR: ", e);
+			alert("error"+e);
+		},
+		done : function(e) {
+			console.log("DONE");
+		}
+	});
+    	//alert(universities);
+    	
     }
     function getTimeChart(){
     var data = {}

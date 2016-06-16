@@ -1,5 +1,7 @@
 package com.universities.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,9 @@ public class HelloWorldService {
 		return timeVisImpl.getTimeVisValues(timeVisDao,univ1,univ2);
 	}
 	
+	public List<String> getAllUniv(TimeVisDAO timeVisDao){
+		return timeVisImpl.getTimeVisUniversities(timeVisDao);
+	}
 
 }
 

@@ -80,6 +80,45 @@ public class TimeVisDAOImpl implements TimeVisDAO{
 
 	}
 
+	@Override
+	public List<String> getAllUniversities() {
+		logger.info("Entered to fetch all universities");
+		String sql = "SELECT university FROM stressAnalytics.universityScore";
+		
+		Connection conn = null;
+		List<String> allUniv=new ArrayList<String>();
+		
+		try {
+			conn = dataSource.getConnection();
+			
+			PreparedStatement ps = conn.prepareStatement(sql);
+			logger.info(sql);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			
+			logger.info("Getting value for each univ");
+			
+			while (rs.next()) {
+				
+				allUniv.add(rs.getString("university"));
+			}
+			
+			rs.close();
+			ps.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} catch (SQLException e) {e.printStackTrace();}
+			}
+		}
+		logger.info("all univ "+allUniv.size());
+		return allUniv;
+	}
+
 }
 
 
