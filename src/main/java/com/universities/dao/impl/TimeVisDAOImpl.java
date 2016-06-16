@@ -35,7 +35,7 @@ public class TimeVisDAOImpl implements TimeVisDAO{
 	@Override
 	public List<TimeLine> getStressValues(String univ1,String univ2) {
 		logger.info("Entered the find the time vis for 2 universities");
-		String sql = "SELECT * FROM stressAnalytics.timeVis where university in (?,?)";
+		String sql = "SELECT * FROM stressAnalytics.timeVis where university in (?,?) ORDER BY startTime";
 		
 		Connection conn = null;
 		ArrayList<TimeLine> allTimeVal=new ArrayList<TimeLine>();
