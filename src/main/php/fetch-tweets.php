@@ -19,7 +19,7 @@ if (!$retval) {
     die('Could not get data: ' . mysql_error());
 } else {
     while($row = mysql_fetch_array($retval)) {
-    	$getfield = '?q='.$row[2].'&lang=en&count=3&since_id='.$row[3];
+    	$getfield = '?q='.$row[2].'&lang=en&count=100&since_id='.$row[3];
     	#$getfield = '?q=#UCLA&count=3&since_id=0743155561215078400';
 		$twitter = new TwitterAPIExchange($settings);
 		$result =  $twitter->setGetfield($getfield)
