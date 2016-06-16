@@ -126,7 +126,7 @@ for ($x = 0; $x < count($university_names); $x++) {
     $positiveSentiment=0;
     $negativeSentiment=0;
     #for every univ get the positive and negative tweet count
-	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=-1";
+	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=2";
 	$retval = mysql_query($select_query_tweets);
 	if (!$retval) {
    		 die('Could not get data: ' . mysql_error());
@@ -139,7 +139,7 @@ for ($x = 0; $x < count($university_names); $x++) {
 	}
 
 
-	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=1";
+	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=0";
 	$retval = mysql_query($select_query_tweets);
 	if (!$retval) {
    		 die('Could not get data: ' . mysql_error());
