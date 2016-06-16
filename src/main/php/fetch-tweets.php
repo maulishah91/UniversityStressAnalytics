@@ -44,6 +44,7 @@ if (!$retval) {
 	 	    $text = trim(preg_replace('/\s+/', ' ', $text));
 	 	    $text = preg_replace('/[,]/', '', $text);
 	 	    $text = trim($text, ',');
+	 	    $all_text =$all_text.$text;
 			fwrite($input_file,$id.", ".$text."\n");
 			$insert_query = "insert into tweets(tweetId, university, raw_timestamp, normalized_timestamp) values('".$id."','".$row[1]."',".$timestamp.",'".$normalized_timestamp."')";
 			$insert_retval = mysql_query($insert_query);
