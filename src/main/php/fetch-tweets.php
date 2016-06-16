@@ -56,9 +56,9 @@ if (!$retval) {
 		#remove punctuations
 		$all_text = preg_replace('/[^a-z0-9]+/i', ' ', $all_text);
 		$all_text = array_count_values(str_word_count($all_text, 1));
-		#print_r(count($all_text));		
+		echo "size of word cloud: ".count($all_text)."\n";		
 		arsort($all_text);
-		$all_text=array_slice($all_text, 0, (count($all_text) >= 25?25:count($all_text)));
+		$all_text=array_slice($all_text, 0, (count($all_text) >= 35?35:count($all_text)));
 		#$all_text["a"]=5;
 		#print_r($all_text);
 		#store this in word cloud table
