@@ -15,6 +15,8 @@ $requestMethod = 'GET';
 
 $select_query = "select * from hashtags";
 $retval = mysql_query($select_query);
+$university_names=array();
+
 if (!$retval) {
     die('Could not get data: ' . mysql_error());
 } else {
@@ -28,6 +30,11 @@ if (!$retval) {
 
 		$response = json_decode($result, true);
 		$input_file = fopen("../python/input/".$row[1].".csv","w");
+
+		#for each university
+		echo "for university: ".$row[1]."\n";
+		$university_names[]="".$row[1]."";
+		$all_text ="";
 
 		foreach($response['statuses'] as $tweet) {
 	 	    $id = $tweet['id'];
@@ -44,6 +51,30 @@ if (!$retval) {
     			die('Could not insert into table: ' . mysql_error());
 			}
 		}
+		#process this text
+		#remove punctuations
+		$all_text = preg_replace('/[^a-z0-9]+/i', ' ', $all_text);
+		$all_text = array_count_values(str_word_count($all_text, 1));
+		#print_r(count($all_text));		
+		arsort($all_text);
+		$all_text=array_slice($all_text, 0, (count($all_text) >= 25?25:count($all_text)));
+		#$all_text["a"]=5;
+		#print_r($all_text);
+		#store this in word cloud table
+		#word cloud will be based on the most recent tweets
+			$delete_query ="delete from wordCloud where tagName = '".$row[1]."'";
+			$delete_retval = mysql_query($delete_query);
+			if (!$delete_retval) {
+    			die('Could not insert into table: ' . mysql_error());
+				}
+			foreach($all_text as $key=>$option) {
+			#echo "".$word."";
+			$insert_query = "insert into wordCloud values('".$row[1]."','".$key."','".$option."')";
+			$insert_retval = mysql_query($insert_query);
+			if (!$insert_retval) {
+    			die('Could not insert into table: ' . mysql_error());
+				}
+			}	
 		
 		fclose($input_file);
 
@@ -84,5 +115,74 @@ if (!$retval) {
 	#break;
    }
 }
+
+
+#insert in univ scores
+#print_r($university_names);
+#the positive and negative scores are not yet normalized
+for ($x = 0; $x < count($university_names); $x++) {
+    echo "$university_names[$x]";
+    $positiveSentiment=0;
+    $negativeSentiment=0;
+    #for every univ get the positive and negative tweet count
+	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=-1";
+	$retval = mysql_query($select_query_tweets);
+	if (!$retval) {
+   		 die('Could not get data: ' . mysql_error());
+	} else {
+		
+    		if($row = mysql_fetch_array($retval)) {
+			#echo "***";			
+			$negativeSentiment = $row[0];		
+		}
+	}
+
+
+	$select_query_tweets = "select count(sentiment) from tweets where university = \"".$university_names[$x]."\" and sentiment=1";
+	$retval = mysql_query($select_query_tweets);
+	if (!$retval) {
+   		 die('Could not get data: ' . mysql_error());
+	} else {
+		
+    		if($row = mysql_fetch_array($retval)) {
+			#echo "***";			
+			$positiveSentiment = $row[0];		
+		}
+	}
+
+	#check if university already exists in the table
+	$select_query_uniScores = "select * from universityScore where university = \"".$university_names[$x]."\"";
+	$retval_uniScores = mysql_query($select_query_uniScores);
+	$num_rows = mysql_num_rows($retval_uniScores);
+	if ($num_rows<=0) {
+		#make a fresh insert
+		echo "insert to be performed";
+		$insert_query = "insert into universityScore values('".$university_names[$x]."','".$positiveSentiment."',".$negativeSentiment.")";
+		$insert_retval = mysql_query($insert_query);
+			if (!$insert_retval) {
+    				die('Could not insert into table: ' . mysql_error());}
+			
+   	}
+	else{
+	#perform an update by adding to previous scores
+		$posValueFromTable=0;
+		$negValueFromTable=0;		
+		if($row = mysql_fetch_array($retval_uniScores)){
+			#echo "check:   ".$row[1]."  ".$row[2]."";
+			$posValueFromTable=$row[1];
+			$negValueFromTable=$row[2];
+		}
+		$positiveSentiment = $positiveSentiment + $posValueFromTable;
+		$negativeSentiment = $negativeSentiment + $negValueFromTable;
+		echo "".$negativeSentiment."";		
+		echo "update to be performed";
+		$update_query = "update universityScore set positiveScore=".$positiveSentiment.", negativeScore=".		  			$negativeSentiment." where university='".$university_names[$x]."'";
+		$update_retval = mysql_query($update_query);
+		if (!$update_retval) {
+		
+    		die('Could not update table: ' . mysql_error());}}
+		
+} 
+
 
 ?>
