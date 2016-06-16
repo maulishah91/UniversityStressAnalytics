@@ -42,7 +42,8 @@ if (!$retval) {
 	 	    $text = trim($text, ',');
 	 	    $all_text =$all_text.strtolower($text);
 			fwrite($input_file,$id.", ".$text."\n");
-			$insert_query = "insert into tweets(tweetId, university, raw_timestamp, normalized_timestamp) values('".$id."','".$row[1]."',".$timestamp.",'".$normalized_timestamp."')";
+			$tweetText = mysql_real_escape_string($text);
+			$insert_query = "insert into tweets(tweetId, university, raw_timestamp, normalized_timestamp, tweetText) values('".$id."','".$row[1]."',".$timestamp.",'".$normalized_timestamp."','".$tweetText."')";
 			$insert_retval = mysql_query($insert_query);
 			if (!$insert_retval) {
     			die('Could not insert into table: ' . mysql_error());
