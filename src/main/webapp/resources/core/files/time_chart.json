@@ -2,12 +2,12 @@
   "axes": [
     {
       "scale": "x",
-      "title": "Time in hours",
+      "title": "Time",
       "type": "x"
     },
     {
       "scale": "y",
-      "title": "Tweet Count",
+      "title": "Stress level",
       "type": "y"
     }
   ],
