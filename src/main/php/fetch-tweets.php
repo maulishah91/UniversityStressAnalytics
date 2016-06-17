@@ -119,6 +119,10 @@ for ($x = 0; $x < count($university_names); $x++) {
 	if ($num_rows<=0) {
 		#make a fresh insert
 		echo "insert to be performed";
+		#normalize values prior to insert
+		$total =$positiveSentiment+$negativeSentiment;
+		$positiveSentiment=round(bcdiv($positiveSentiment, $total, 3)*100);
+		$negativeSentiment=round(bcdiv($negativeSentiment, $total, 3)*100);
 		$insert_query = "insert into universityScore values('".$university_names[$x]."','".$positiveSentiment."',".$negativeSentiment.")";
 		$insert_retval = mysql_query($insert_query);
 			if (!$insert_retval) {
@@ -136,6 +140,11 @@ for ($x = 0; $x < count($university_names); $x++) {
 		}
 		$positiveSentiment = $positiveSentiment + $posValueFromTable;
 		$negativeSentiment = $negativeSentiment + $negValueFromTable;
+		#normalize values
+		$total =$positiveSentiment+$negativeSentiment;
+		$positiveSentiment=round(bcdiv($positiveSentiment, $total, 3)*100);
+		$negativeSentiment=round(bcdiv($negativeSentiment, $total, 3)*100);
+		
 		echo "".$negativeSentiment."";		
 		echo "update to be performed";
 		$update_query = "update universityScore set positiveScore=".$positiveSentiment.", negativeScore=".		  			$negativeSentiment." where university='".$university_names[$x]."'";
@@ -151,11 +160,11 @@ for ($x = 0; $x < count($university_names); $x++) {
 	$retval = mysql_query($select_query_tweet_text);
 	$num_rows = mysql_num_rows($retval);
 	while($row = mysql_fetch_array($retval)){
-			$all_text =$all_text.strtolower($row[0]);
+			$all_text =$all_text.strtolower($row[0])." ";
 		}
 	#process this text
 	#remove punctuations
-	$all_text = preg_replace('/[^a-z0-9]+/i', ' ', $all_text);
+	$all_text = preg_replace('/[^a-z]+/i', ' ', $all_text);
 	$all_text = removeCommonWords($all_text);
 	$all_text = array_count_values(str_word_count($all_text, 1));
 	echo "size of word cloud: ".count($all_text)."\n";		
