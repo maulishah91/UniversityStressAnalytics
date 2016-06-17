@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `hashtags` (
 CREATE TABLE IF NOT EXISTS `tweets` (
   id INT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   tweetId varchar(30),
+  tweetText varchar(200),
   university varchar(50),
   raw_timestamp varchar(30),
   normalized_timestamp varchar(30),

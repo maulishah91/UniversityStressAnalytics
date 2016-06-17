@@ -51,6 +51,10 @@ public class WordCloudDAOImpl implements wordCloudDao{
 			while(rs.next()){
 				int size = rs.getInt("size");
 				size = (size*100)/biggestSize;
+				if(size<25){
+					if(size<20)size=15;
+					else size=25;
+				}
 				oneword=new Word();
 				oneword.setText(rs.getString("word"));
 				oneword.setSize(size);
