@@ -61,9 +61,9 @@ if (!$retval) {
     		die('Could not update table: ' . mysql_error());
 		}
 		$oldPath = getcwd();
-		chdir('/home/nisargmodi/git/stress/src/main/python/');
+		chdir('/home/ubuntu/desktop/stress/src/main/python/');
 		exec("php php_python_caller.php ".$row[1]);
-		chdir('/home/nisargmodi/git/stress/src/main/php/');
+		chdir('/home/ubuntu/desktop/stress/src/main/php/');
 		$output_file = fopen("../python/output/".$row[1].".csv","r");
 		while(! feof($output_file)) {
 			$line = fgets($output_file);
