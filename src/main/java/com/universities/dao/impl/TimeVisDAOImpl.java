@@ -58,7 +58,7 @@ public class TimeVisDAOImpl implements TimeVisDAO{
 				
 				eachTimeVal=new TimeLine();
 				eachTimeVal.setCol(rs.getString("university"));
-				eachTimeVal.setIdx(rs.getString("startTime"));
+				eachTimeVal.setIdx(rs.getString("startTime")+"000");
 				eachTimeVal.setVal((double)rs.getFloat("dailyNegativeTweetCount"));
 				allTimeVal.add(eachTimeVal);
 			}
