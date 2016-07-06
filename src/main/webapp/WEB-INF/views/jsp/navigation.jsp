@@ -16,7 +16,7 @@
         <div class="navigation">
 <div class="background-image"></div>
 <div class="title" style="font-size: 40px;text-align: center;font-family: 'Lucida Console, Monaco, monospace'">
-University Stress Analytics</div>
+How Stressed is your University?</div>
 
 <div class="container">
     <div class="row">

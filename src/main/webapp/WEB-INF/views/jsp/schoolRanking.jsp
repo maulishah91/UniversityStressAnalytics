@@ -66,7 +66,7 @@
 
                 </div>
 				 <div id="showBarChart" ></div>
-                 <div id="showWordCloud" style="position:absolute;left:800px;top:250px;"><script type="text/javascript"></script> </div> 
+                 <div id="showWordCloud" style="position:absolute;left:80%;top:250px;"><script type="text/javascript"></script> </div> 
             </section>
 
         </div>
