@@ -33,17 +33,20 @@ function validateFields(){
 	document.getElementById("emailError").innerHTML="";
 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     
-	if (email == null || email === undefined || email=="" || !re.test(email)) {
+	if (email == null || email === undefined || email=="" || !re.test(email) ) {
         document.getElementById("emailError").innerHTML="Enter a valid email ID";
 		validate= false; } 
-	
+	if(email.substring(email.length-4)!=".edu"){
+    	document.getElementById("emailError").innerHTML="Enter an email ID ending in .edu";
+		validate= false;
+    }
 	//check for twitter handle
 	var twitter=document.getElementById("twitter").value.trim();
 	document.getElementById("twitterHandleError").innerHTML="";
 	if (twitter == null || twitter === undefined || twitter=="") {
         document.getElementById("twitterHandleError").innerHTML="Enter a valid twitter handle";
 		validate= false; } 
-    
+
     return validate;
 }
 

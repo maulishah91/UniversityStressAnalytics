@@ -52,7 +52,11 @@ function buildMap(data,jsonResp){
             .append('path')
             .attr('d', path)
             .attr('id', function(d) { return d.properties.abbr; })
-            .style('fill', function(d) { return mapColor(Math.log(values[d.properties.abbr] || 1)); });
+            .style('fill', function(d) { 
+                if(isNaN(Math.log(values[d.properties.abbr]))){
+                return "#D3D3D3";
+                }
+                return mapColor(Math.log(values[d.properties.abbr] || 1)); });
  
     g.selectAll('text')
             .data(data.states)
@@ -71,11 +75,11 @@ function buildMap(data,jsonResp){
                          .attr("x",20)
                          .attr("y",0)
                          .attr("width",500)
-                         .attr("height",80)
+                         .attr("height",110)
                          .attr("fill","none")
                          .attr("stroke","black")
-                         .attr("padding",10);
-                         
+                         .attr("padding",10);  
+
 
 var legend = svg.selectAll(".legend")
     .data(mapCol.ticks())
@@ -87,6 +91,8 @@ var legend = svg.selectAll(".legend")
                 return "translate(" + (i * 40) + "," + (40) + ")";
             }
         });
+
+
 
 legend.append("rect")
 .attr({
@@ -114,7 +120,7 @@ svg.append("text")
     'x': 50,
     'y': 30
 })
-.text('Happy to Stressful');
+.text('Stress level');
 
   svg.append("text")
       .attr("class", "label")
@@ -122,5 +128,34 @@ svg.append("text")
       .attr("y", 10)
       .attr("dy", ".35em")
       .text("Count");        
-}
+
+//new legend
+var legend2 = svg.selectAll(".legend")
+    //.data([0.8]).enter()
+    .append("g")
+        .attr({
+            'class': 'legend',
+            'transform': function(d, i) {
+                return "translate(" + (40) + "," + (40) + ")"; }
+        });
+
+legend2.append("rect")
+.attr({
+    'x':10,
+    'y':0,
+    'width': 40,
+    'height': 20,
+    'fill': "#D3D3D3"
+});
+
+svg.append("text")
+.attr({
+    'class': 'label',
+    'font-size': 10,
+    'x': 75,
+    'y': 95
+})
+.text('Data not available');
+
  
+}

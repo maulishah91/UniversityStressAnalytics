@@ -163,6 +163,10 @@ public class WelcomeController {
 			msg= "Please enter valid email ID";
 			isError=true;
 		}
+		else if(!email.substring(email.length()-4).equalsIgnoreCase(".edu")){
+			msg="Enter valid .edu address";
+			isError=true;
+		}
 		
 		else if( !validateText(twitter)){
 			msg= "Please enter valid twitter handle";
@@ -191,7 +195,7 @@ public class WelcomeController {
 	}
 	
 	boolean validateEmail(String email){
-		//if(email==null || email.trim().equals("") || !email.trim().contains("@")) return false;
+		if(email==null || email.trim().equals("") || !email.trim().contains("@")) return false;
 		//return EmailValidator.getInstance().isValid(email);
 		return true;
 	}

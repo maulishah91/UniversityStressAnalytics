@@ -30,7 +30,7 @@ var svg = d3.select("#showBarChart").append("svg")
   //if (error) throw error;
 
   x.domain(data.map(function(d) { return d.letter; }));
-  y.domain([0, d3.max(data, function(d) { return (d.frequency+100); })]); //additional 100 will increase y axis range, this will not affect the values
+  y.domain([0, d3.max(data, function(d) { return (d.frequency); })]); //additional 100 will increase y axis range, this will not affect the values
 
 
   svg.append("g")
@@ -44,7 +44,8 @@ var svg = d3.select("#showBarChart").append("svg")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", -46)
+      .attr("x",-130)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Happiness Quotient");
@@ -66,7 +67,7 @@ var legend = svg.append("g")
     .attr("class", "legend")
     .attr("height", 100)
     .attr("width", 100)
-    .attr('transform', 'translate('+(-margin.right-20)+','+margin.top+')');
+    .attr('transform', 'translate('+(-margin.right-35)+','+(margin.top-75)+')');
 
 //Small rectangle which shows the color
 var legendRect = legend.selectAll('rect').data(colors);
