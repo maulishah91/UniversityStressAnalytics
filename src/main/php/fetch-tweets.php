@@ -191,7 +191,7 @@ for ($x = 0; $x < count($university_names); $x++) {
 }
 ### copying from tweets table to timevis table
 	#$tweetsToTimeVisQuery_select = "select university, count(*) as dailyNegativeTweetCount, normalized_timestamp as startTime from tweets where sentiment=2 group by normalized_timestamp, university"
-	$tweetsToTimeVisQuery_select = "select university, count(*) as dailyNegativeTweetCount, normalized_timestamp as startTime from tweets where sentiment=2 group by normalized_timestamp, university";
+	$tweetsToTimeVisQuery_select = "select university, count(*) as dailyNegativeTweetCount, normalized_timestamp as startTime from (select * from tweets where sentiment=2) t group by t.university, t.normalized_timestamp";
 	$tweetsToTimeVisQuery_select_retval = mysql_query($tweetsToTimeVisQuery_select);
 	if (!$tweetsToTimeVisQuery_select_retval) {
 		die('Could not select from tweets table for timeVis table: ' . mysql_error());
