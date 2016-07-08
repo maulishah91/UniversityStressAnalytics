@@ -49,6 +49,6 @@ CREATE TABLE IF NOT EXISTS `tweets` (
 
 insert into hashtags values(1, 'UCLA', '#UCLA','1'), (2, 'Stanford', '#Stanford','1'), (3, 'MIT', '#MIT','1'), (4, 'NYU', '#NYU','1'), (5, 'UCB', '#UCB','1'), (6, 'USC','#USC','1'), (7, 'Columbia', '#Columbia','1'), (8, 'Cornell', '#Cornell','1'), (9, 'CMU', '#CMU','1'), (10, 'Yale', '#Yale','1');
 
-insert into universityStateMapping values('UCLA', 'CA'), ('Stanford', 'CA'), ('MIT', 'BA'), ('NYU', 'NY'), ('UCB', 'CA'), ('USC','CA'), ('Columbia', 'NY'), ('Cornell', 'NY'), ('CMU', 'PA'), ('Yale', 'BA');
+insert into universityStateMapping values('UCLA', 'CA'), ('Stanford', 'CA'), ('MIT', 'MA'), ('NYU', 'NY'), ('UCB', 'CA'), ('USC','CA'), ('Columbia', 'NY'), ('Cornell', 'NY'), ('CMU', 'PA'), ('Yale', 'CT');
 
 insert into timeVis values('UCLA',0,1465776000),('Stanford',0,1465776000),('MIT',0,1465776000),('NYU',0,1465776000),('UCB',0,1465776000),('USC',0,1465776000),('Columbia',0,1465776000),('Cornell',0,1465776000),('CMU',0,1465776000),('Yale',0,1465776000);
