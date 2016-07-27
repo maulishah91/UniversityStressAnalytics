@@ -11,3 +11,5 @@
 /src/main/webapp/WEB-INF/spring-core-config.xml
 /src/main/python/input
 /src/main/python/output
+*.log
+*.csv
