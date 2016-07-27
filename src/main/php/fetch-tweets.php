@@ -204,5 +204,30 @@ for ($x = 0; $x < count($university_names); $x++) {
 		}
 	}
 
-###insert tweets in word cloud	
+### bug fix for timeVis table: temp fix ->
+
+ $truncate_timeVis2 = "truncate timeVis2";
+ $truncate_timeVis2_query = mysql_query($truncate_timeVis2);
+ 	if (!$truncate_timeVis2_query) {
+        	die('Could not truncate timeVis2: ' . mysql_error());
+        }
+
+ $timeVisBackup = "insert into timeVis2 select * from timeVis";
+ $timeVisBackup_query = mysql_query($timeVisBackup);
+        if (!$timeVisBackup_query) {
+                die('Could not insert into timeVis2 for timeVis: ' . mysql_error());
+        }
+
+ $truncate_timeVis = "truncate timeVis";
+ $truncate_timeVis_query = mysql_query($truncate_timeVis);
+        if (!$truncate_timeVis_query) {
+                die('Could not truncate timeVis: ' . mysql_error());
+        }
+
+ $timeVis = "insert into timeVis select * from timeVis2 group by university, startTime";
+ $timeVis_query = mysql_query($timeVis);
+        if (!$timeVis_query) {
+                die('Could not truncate timeVis: ' . mysql_error());
+        }
+
 ?>
