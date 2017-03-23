@@ -1,0 +1,116 @@
+
+@media screen and (max-width: 600px) {
+    .navbar-brand {
+      letter-spacing: 2px;
+    }
+    .carousel {
+      margin-top: 100px !important;
+    }
+    .carousel-caption h2 {
+      font-size: 20px !important;
+    }
+    .carousel-caption p {
+      font-size: 12px !important;
+    }
+    .container {
+      padding: 50px 15px !important;
+    }
+    .project {
+      padding: 50px 15px !important;
+    }
+}
+
+@media screen and (max-width: 750px) {
+  .project .how-it-works {
+    margin-left: 0 !important;
+  }
+}
+
+body {
+    font: 400 15px/1.8 Lato, sans-serif;
+    color: #777;
+	}
+
+	h3, h4 {
+    margin: 50px 0 50px 0;
+    letter-spacing: 5px; 
+    font-size: 20px;
+    color: #111;
+	}
+
+    .container {
+      padding: 50px 120px 80px;
+    }
+
+    .container-fluid {
+    	padding: 0px 0px;
+    }
+
+    .container h3 {
+    	margin-top: 30px !important;
+    	margin-bottom: 35px !important;
+    }
+
+    .logo-img {
+    	width: 45px;
+    	height: 45px;
+    	margin-left: 30px;
+    	margin-top: 3px;
+    }
+
+    .navbar {
+      margin-bottom: 0;
+      background-color: #ffffff;
+      border: 0;
+      font-size: 12px !important;
+      letter-spacing: 4px;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    .navbar-brand{
+    	padding-left: 30px;
+    }
+
+	.navbar li a, .navbar .navbar-brand { 
+      color: #373D3F !important;
+	}
+
+	.navbar-nav li a:hover {
+      color: #A7B0B2 !important;
+    }
+
+	.navbar-nav li.active a {
+      color: #A7B0B2 !important;
+      background-color: #f6f6f6 !important;
+	}
+
+	.navbar-default .navbar-toggle {
+      border-color: transparent;
+	}
+
+	.navbar li a .glyphicon {
+      padding-right: 30px;
+  }
+
+	.carousel-caption h2 { 
+	  color: #fff !important;
+	  font-size: 35px;
+	 }
+
+	.carousel-caption p {
+	  font-size: 18px;
+	}
+
+	.project {
+	  background-color: #f6f6f6;
+	  padding: 50px 120px 80px;
+	}
+
+	.project .how-it-works {
+	  margin-left: -50%;
+	}
+
+	footer {
+		background-color: #ffffff;
+		padding: 20px 0 0 0;
+	}

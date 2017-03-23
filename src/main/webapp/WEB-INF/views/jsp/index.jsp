@@ -1,126 +1,166 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Sentiment Analysis</title>  
-<!-- D3 related scripts -->
-<spring:url value="/resources/core/files/time_chart.json" var="time_chart_json" />
-<spring:url value="/resources/core/js/topojson.v1.min.js" var="topojson" />
-<spring:url value="/resources/core/js/d3.geo.projection.v0.min.js" var="geo" />
-<spring:url value="/resources/core/js/vega.js" var="vega" />
-<script>var pageName='#timeSeries';</script>
-<%@include file="navigation.jsp" %>
-   
-<script src="${topojson}"></script>
-<script src="${geo}" charset="utf-8"></script>
-<script src="${vega}"></script>  
-
-
-<script type="text/javascript">
-
-var dat;
-// parse a spec and create a visualization view
-function parse(spec,newdata) {
-	spec["data"][0]["values"]=newdata;
-  vg.parse.spec(spec, function(chart) { chart({el:"#showTimeSeries"}).height(400).width(650).update(); });
-}
-
-</script>
+    <title>UCIPT Stress Analytics</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/custom.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+    <script src="resources/js/main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 </head>
-<body>
-<div class="container">
-    <div class="row">
-<section class="content">
-            <div class="col-md-8 col-md-offset-4">
-                
 
-               <div class="form-group">
-                          
-                          <select onclick="getTimeChart();" class="form-control" id="college1" style="width:100px;float:left;margin:10px;">
-                            
-                          </select>
-                         <span style="float:left;margin:10px;">Versus </span>
-                          <select onclick="getTimeChart();" class="form-control" id="college2" style="width:100px;float:left;margin:10px;">
-                            
-                          </select>
-                          </div>
-                    <br/><br/> 
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span> 
+        </button>
+        <a href="#" class="navbar-left"><img src="resources/core/images/UCIPT-logo.png" class="logo-img"></a>
+        <a class="navbar-brand" href="#">University Stress Analytics</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#project">PROJECTS</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="resources/core/images/brain.jpg" alt="brain" width=100% height="700">
+        <div class="carousel-caption">
+          <h2>Big Data & Machine Learning</h2>
+          <p>At the UCIPT, we're bringing big data and machine learning to student health</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="resources/core/images/bigdata.png" alt="bigdata" width=100% height="700">
+        <div class="carousel-caption">
+          <h2>University & Student Mental Health</h2>
+          <p>Use the power of big data to answer questions like: <em>How stressed is your university?</em></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
+  <div id="about" class="container text-center">
+    <h3>University of California Institute for Prediction Technology</h3>
+    <p> At UCIPT, we are doing cutting-edge research bringing together big data, social media, and machine learning across UC campuses and departments to pioneer the new, interdisciplinary field of prediction technology.</p>
+	  <p> UCIPT has developed a visualization application that compares social media data from 10 different universities. Each day tweets are collected and the graph is updated, providing trends and insights into the real-time stress and happiness quotients at these institutions.</p>
+    <p>See our Q&A on the project - <a href="http://predictiontechnology.ucla.edu/social-media-stress-and-college-life-the-freshman-200-study/">Social Media, Stress, and College Life: The Freshman 200 Study</a></p>
+
+	</div>
+
+  <div id="project" class="container-fluid text-center">
+  	<div class="project">
+      <h3>Visualization Demos</h3>
+      <div class="row">
+        <div class="col-sm-4">
+          <ul class="nav nav-pills nav-stacked grey">
+  		    <li class="active"><a data-toggle="pill" href="#time-series">Time Series Visualization</a></li>
+  			<li><a data-toggle="pill" href="#stress-map">Stress Map</a></li>
+  			<li><a data-toggle="pill" href="#happiness-quotient">Happiness Quotient</a></li>
+  			<li><a data-toggle="pill" href="#word-cloud">Word Cloud</a></li>
+		  </ul>
+        </div>
+        <div class="col-sm-8">
+          <div class="tab-content">
+            <div id="time-series" class="tab-pane fade in active">
+          	  <img src="resources/core/images/time-series.png" class="img-responsive">
+          	  <div class="how-it-works">
+          	    <h4>How It Works</h4>
+          	    <p><b>Time Series Visualization</b> - Select two schools to compare. The visualization will show the stress levels over time for each school.</p>
+          	  </div>
+          	</div>
+            <div id="stress-map" class="tab-pane fade">
+              <img src="resources/core/images/stress-map.png" class="img-responsive">
+                <div class="how-it-works">
+                  <h4>How It Works</h4>
+                  <p><b>Stress Map</b> - This map will show the overall stress level by location from a 0 - 1 (light blue to red) scale.<br> 0 (light blue) represents low levels of stress whereas 1 (red) represents high levels of stress.</p>
+                </div>
             </div>
-                <br/><br/><br/><br/>
-                <div class="col-md-6 col-md-offset-2">
-                      <div id="showTimeSeries"></div>     </div>       
-</section>
+            <div id="happiness-quotient" class="tab-pane fade">
+              <img src="resources/core/images/happiness-quotient.png" class="img-responsive">
+              <div class="how-it-works">
+                <h4>How It Works</h4>
+                <p><b>Happiness quotient</b> - The overall happiness levels at each university.</p>
+              </div>
+            </div>
+            <div id="word-cloud" class="tab-pane fade">
+              <img src="resources/core/images/tag-cloud.png" class="img-responsive">
+              <div class="how-it-works">
+                <h4>How It Works</h4>
+                <p><b>Word Cloud</b> - Displays the most frequently used words by students.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-</div></div>
+  <div id="contact" class="container">
+    <h3 class="text-center">Contact</h3>
+    <p class="text-center"><em>Want to get involved?</em></p>
+    <div class="row test">
+      <div class="col-md-4">
+        <p><em>Student?</em><br>Leave us your Twitter handle. The more Twitter handles we can collect data from, the better our models perform.</p>
+        <p><em>Not a student, but still interested in prediction technology?</em><br>Email us at info@predictiontechnology.ucla.edu.</p>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-sm-6 form-group">
+            <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+        </div>
+        <div class="col-sm-6 form-group">
+          <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+        </div>
+      </div>
+      <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <button class="btn pull-right" type="submit">Send</button>
+        </div>
+      </div> 
+    </div> 
+  </div>
 
-<%@include file="footer.jsp"%>
-  <script>
-    //load time vis data
-    function loadUniversities(){
-    	
-    	//ajax request for universities
-    	$.ajax({
-		type : "GET",
-		contentType : "application/json",
-		url : "ajax/getTimeVisUniversities",
-		dataType : 'json',
-		timeout : 100000,
-		success : function(data) {
-			console.log("SUCCESS: ", data);	
-			//alert(data[0]);
-			var universities=data;
-			var options="";
-	    	for (i=0;i<universities.length;i++){
-	    		options+="<option>"+universities[i]+"</option>";
-	    	}
-	    	document.getElementById("college1").innerHTML=options;
-	    	document.getElementById("college2").innerHTML=options;
-			},
-		error : function(e) {
-			console.log("ERROR: ", e);
-			alert("error"+e);
-		},
-		done : function(e) {
-			console.log("DONE");
-		}
-	});
-    	//alert(universities);
-    	
-    }
-    function getTimeChart(){
-    var data = {}
-	data["univ1"] = document.getElementById("college1").value;
-    data["univ2"] = document.getElementById("college2").value;
-    if(data["univ1"]==null || data["univ1"]=="undefined"){
-    	data["univ1"]="UCLA";
-    	data["univ2"]="UCLA";
-    }
-    $.ajax({
-		type : "GET",
-		contentType : "application/json",
-		url : "ajax/getTimeVisData",
-		data : data,
-		dataType : 'json',
-		timeout : 100000,
-		success : function(data) {
-			console.log("SUCCESS: ", data);		
-			jsonResp=data;
-			$.getJSON("${time_chart_json}", function(data) {
-		        parse(data,jsonResp);
-		        
-		    });
-		},
-		error : function(e) {
-			console.log("ERROR: ", e);
-			alert("error"+e);
-		},
-		done : function(e) {
-			console.log("DONE");
-		}
-	});
-    }
-    loadUniversities();
-    getTimeChart();
-    </script>
-</body>
+  <footer class="text-center">
+    <a href="http://predictiontechnology.ucla.edu/">2016 UC Institute of Prediction Technology</a>
+  </footer>
+
+  </body>
+</html>
+
