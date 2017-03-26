@@ -4,6 +4,10 @@
 <head>
     <title>UCIPT Stress Analytics</title>
     <meta charset="utf-8">
+    <spring:url value="/resources/core/files/time_chart.json" var="time_chart_json" />
+    <spring:url value="/resources/core/js/topojson.v1.min.js" var="topojson" />
+    <spring:url value="/resources/core/js/d3.geo.projection.v0.min.js" var="geo" />
+    <spring:url value="/resources/core/js/vega.js" var="vega" />
     <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="resources/bootstrap/css/custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -12,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
